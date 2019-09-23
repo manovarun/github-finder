@@ -3,13 +3,15 @@ import Axios from 'axios';
 import Navbar from './components/layout/Navbar';
 import Users from './components/users/Users';
 import Search from './components/users/Search';
+import Alert from './components/layout/Alert';
 
 import './App.css';
 
 export class App extends Component {
   state = {
     users: [],
-    loading: false
+    loading: false,
+    alert: null
   };
 
   componentDidMount = async () => {
@@ -31,8 +33,15 @@ export class App extends Component {
     this.setState(() => ({ users: res.data.items, loading: false }));
   };
 
-  clearUsers = () => {
-    this.setState({ users: [], loading: false });
+  clearUsers = () => this.setState({ users: [], loading: false });
+
+  setAlert = (msg, type) => {
+    this.setState(() => ({ alert: { msg, type } }));
+    setTimeout(() => {
+      this.setState(() => ({
+        alert: null
+      }));
+    }, 5000);
   };
 
   render() {
@@ -41,10 +50,12 @@ export class App extends Component {
       <Fragment>
         <Navbar />
         <div className="container">
+          <Alert alert={this.state.alert} />
           <Search
             searchUsers={this.searchUsers}
             clearUsers={this.clearUsers}
             showClear={users.length > 0 ? true : false}
+            setAlert={this.setAlert}
           />
           <Users loading={loading} users={users} />
         </div>
