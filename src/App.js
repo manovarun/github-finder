@@ -41,7 +41,7 @@ export class App extends Component {
     this.setState(() => ({ users: res.data.items, loading: false }));
   };
 
-  //get a single user
+  //get user
   getUser = async username => {
     this.setState(() => ({ loading: true }));
 
@@ -72,7 +72,7 @@ export class App extends Component {
       this.setState(() => ({
         alert: null
       }));
-    }, 5000);
+    }, 3000);
   };
 
   render() {
