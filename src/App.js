@@ -2,13 +2,15 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Axios from 'axios';
 import './App.css';
+
 import Navbar from './components/layout/Navbar';
 import Users from './components/users/Users';
 import Search from './components/users/Search';
 import Alert from './components/layout/Alert';
 import About from './components/pages/About';
 import User from './components/users/User';
-import GithubState from './components/context/github/GithubState';
+
+import GithubState from './context/github/GithubState';
 
 const App = () => {
   const [users, setUsers] = useState([]);
@@ -23,24 +25,24 @@ const App = () => {
     const res = await Axios.get(
       `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
     );
-    console.log(res.data);
     setUsers(res.data);
     setLoading(false);
   };
+
   useEffect(() => {
     getInitialUsers();
   }, []);
 
   //search users
-  const searchUsers = async text => {
-    setLoading(true);
+  // const searchUsers = async text => {
+  //   setLoading(true);
 
-    const res = await Axios.get(
-      `https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-    );
-    setUsers(res.data.items);
-    setLoading(false);
-  };
+  //   const res = await Axios.get(
+  //     `https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+  //   );
+  //   setUsers(res.data.items);
+  //   setLoading(false);
+  // };
 
   //get user
   const getUser = async username => {
@@ -91,7 +93,6 @@ const App = () => {
                 render={props => (
                   <Fragment>
                     <Search
-                      searchUsers={searchUsers}
                       clearUsers={clearUsers}
                       showClear={users.length > 0 ? true : false}
                       setAlert={getAlert}
