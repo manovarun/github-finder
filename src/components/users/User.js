@@ -4,10 +4,10 @@ import Spinner from '../layout/Spinner';
 import Repos from '../repos/Repos';
 import GithubContext from '../../context/github/GithubContext';
 
-const User = ({ getUserRepos, repos, match }) => {
+const User = ({ match }) => {
   const githubContext = useContext(GithubContext);
 
-  const { getUser, user, loading } = githubContext;
+  const { getUser, user, repos, getUserRepos, loading } = githubContext;
 
   useEffect(() => {
     getUser(match.params.login);
@@ -103,13 +103,5 @@ const User = ({ getUserRepos, repos, match }) => {
     </Fragment>
   );
 };
-
-// User.propTypes = {
-//   getUser: PropTypes.func.isRequired,
-//   getUserRepos: PropTypes.func.isRequired,
-//   user: PropTypes.object.isRequired,
-//   repos: PropTypes.array.isRequired,
-//   loading: PropTypes.bool
-// };
 
 export default User;
