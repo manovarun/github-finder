@@ -10,7 +10,8 @@ const Users = () => {
 
   useEffect(() => {
     getInitialUsers();
-  }, [getInitialUsers]);
+    //eslint-disable-next-line
+  }, []);
   if (loading) {
     return <Spinner />;
   } else {
